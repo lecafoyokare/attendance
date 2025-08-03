@@ -1,0 +1,67 @@
+
+.main {
+    width: 100%;
+    min-width: 370px;
+    min-height: 800px;
+}
+
+.staff {
+    width: 900px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+@media screen and (max-width: 768px) {
+    .staff {
+        width: 90%;
+    }
+}
+
+.staff_inner {
+    width: 100%;
+}
+
+.staff_ttl {
+    height: 40px;
+    font-size: 28px;
+    padding: 5px 0;
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-left-color: black;
+    padding-left: 15px;
+}
+
+.table {
+    margin-top: 38px;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.table a {
+    text-decoration: none;
+    color: black;
+}
+
+.table th,
+.table td {
+    font-weight: 400;
+    padding: 15px;
+}
+
+.table th {
+    border-bottom: solid 3px #ececec;
+}
+
+.table td {
+    border-bottom: solid 2px #ececec;
+}
+
+.error {
+    color: red;
+}
+

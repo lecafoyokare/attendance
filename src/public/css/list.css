@@ -1,0 +1,128 @@
+
+.main {
+    width: 100%;
+    min-width: 370px;
+    min-height: 800px;
+}
+
+.list {
+    width: 900px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+@media screen and (max-width: 768px) {
+    .list {
+        width: 90%;
+    }
+}
+
+.list_inner {
+    width: 100%;
+}
+
+.list_ttl {
+    height: 40px;
+    font-size: 28px;
+    padding: 5px 0;
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-left-color: black;
+    padding-left: 15px;
+}
+
+.calendar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 38px;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.month a {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    color: gray;
+    text-decoration: none;
+}
+
+.month span {
+    margin-top: 3px;
+    font-size: 18px;
+    color: black;
+}
+
+label {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 36px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+}
+
+input[type="date"] {
+    position: relative;
+    padding: 0 10px;
+    width: 200px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #999;
+}
+
+.table {
+    margin-top: 38px;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.table a {
+    text-decoration: none;
+    color: black;
+}
+
+.table th,
+.table td {
+    font-weight: 400;
+    padding: 15px;
+}
+
+.table th {
+    border-bottom: solid 2px #ececec;
+}
+
+.table td {
+    border-bottom: solid 1px #ececec;
+}
+
+.correction {
+    margin-top: 38px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.correction button {
+    padding: 4px 30px;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 1px;
+    background-color: black;
+    border-radius: 4px;
+}
+
+.error {
+    color: red;
+}

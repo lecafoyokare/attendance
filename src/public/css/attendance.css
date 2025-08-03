@@ -1,0 +1,81 @@
+
+.main {
+    width: 100%;
+    min-width: 370px;
+    height: 800px;
+}
+
+.attendance {
+    width: 500px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 138px;
+}
+
+@media screen and (max-width: 768px) {
+    .attendance {
+        width: 90%;
+    }
+}
+
+.attendance_inner {
+    width: 100%;
+}
+
+.status_wrapper {
+    text-align: center;
+}
+
+.status {
+    display: inline-block;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 23px;
+    color: gray;
+    background-color: gainsboro;
+}
+
+.today {
+    margin-top: 28px;
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.current_time {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.error {
+    color: red;
+}
+
+.attendance_btn {
+    width: 333px;
+    height: 45px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 2px;
+}
+
+.attendance_btn * {
+    width: 42%;
+    height: 100%;
+    border: none;
+    font-size: 22px;
+    color: #fafafa;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.attendance_btn .btn_white {
+    background-color: #fafafa;
+    color: black;
+}
