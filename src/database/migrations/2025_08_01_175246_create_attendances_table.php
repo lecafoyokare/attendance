@@ -15,11 +15,10 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id');
             $table->date('date');
-            $table->timestamp('clock_in')->nullable();
-            $table->timestamp('clock_out')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');    
+            $table->time('clock_in');
+            $table->time('clock_out')->nullable();
             $table->timestamps();
         });
     }

@@ -39,7 +39,7 @@
     margin-top: 28px;
     display: block;
     text-align: center;
-    font-size: 30px;
+    font-size: 35px;
     letter-spacing: 1px;
 }
 
@@ -47,7 +47,7 @@
     margin-top: 20px;
     display: block;
     text-align: center;
-    font-size: 50px;
+    font-size: 60px;
     font-weight: 600;
     letter-spacing: 1px;
 }
@@ -78,4 +78,12 @@
 .attendance_btn .btn_white {
     background-color: #fafafa;
     color: black;
+}
+
+.thank_you_work {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
+    background-color: #ececec;
 }

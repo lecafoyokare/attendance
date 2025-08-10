@@ -21,10 +21,22 @@ use app\Http\Controllers\RequestController;
 // Route::get('login', [AuthController::class, 'login']);
 // Route::post('login', [AuthController::class, 'loginPost']);
 
-Route::get('attendance', [AttendanceController::class, 'attendance']);
-Route::get('list', [AttendanceController::class, 'list']);
-Route::get('detail', [AttendanceController::class, 'detail']);
-Route::post('request', [RequestController::class, 'list']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('attendance', [AttendanceController::class, 'attendance']);
+    Route::get('/attendance/clock_in', [AttendanceController::class, 'clockIn']);
+    Route::get('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
+    Route::get('/attendance/rest_start', [AttendanceController::class, 'restStart']);
+    Route::get('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
+    Route::get('list', [AttendanceController::class, 'list']);
+    Route::get('detail', [AttendanceController::class, 'detail']);
+    Route::post('request', [RequestController::class, 'list']);
+});
+
+
+
+
+Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])
+    ->name('attendance.breakStart');
 
 // Route::get('/', function () {
 //     return view('welcome');
