@@ -23,9 +23,12 @@
                 </nav>
                 <nav class="header_nav">
                     <ul class="header_nav_lists">
-                        <li class="nav_link"><a href="">勤怠一覧</a></li>
+                        <li class="nav_link"><a href="/attendance">勤怠</a></li>
+                        <li class="nav_link"><a href="/attendance/list">勤怠一覧</a></li>
+                        <li class="nav_link"><a href="/stamp_correction_request/list">申請</a></li>
+                        {{-- <li class="nav_link"><a href="">勤怠一覧</a></li>
                         <li class="nav_link"><a href="">スタッフ一覧</a></li>
-                        <li class="nav_link"><a href="">申請一覧</a></li>
+                        <li class="nav_link"><a href="">申請一覧</a></li> --}}
                         <li class="nav_link">
                             <form action="/logout" method="post">
                             @csrf

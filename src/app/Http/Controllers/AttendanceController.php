@@ -20,7 +20,11 @@ class AttendanceController extends Controller
 
         $check_in = Attendance::TodayAttendance()->exists();
 
-        $restCheck = Rest::RecordFind()->exists();
+        if ($check_in===false) {
+            $restCheck = false;
+        } else {
+            $restCheck = Rest::RecordFind()->exists();
+        }
 
         $check_out = Attendance::TodayAttendance()->
                         whereNotNull('clock_out')->exists();
@@ -61,7 +65,7 @@ class AttendanceController extends Controller
 
         $now = now();
 
-        $attendance = Attendance::where('user_id', Auth::id())->where('date', date('Y-m-d'))->first();
+        $attendance = Attendance::TodayAttendance()->first();
 
         $data = [
             'clock_out' => $now->toTimeString(),
@@ -76,14 +80,15 @@ class AttendanceController extends Controller
         //画面が切り替わっていなかった場合のエラー回避
         $recordCheck = Rest::RecordFind()->exists();
 
+        $attendance_id = Attendance::TodayAttendance()->first()->id;
+
         if ($recordCheck===true) {
             return redirect('/attendance');
         } else {
             $now = now();
 
             Rest::create([
-                'user_id'  => Auth::id(),
-                'date'     => $now->toDateString(),
+                'attendance_id' => $attendance_id,
                 'rest_start' => $now->toTimeString(),
             ]);
 
@@ -107,9 +112,13 @@ class AttendanceController extends Controller
 
     }
 
-    function list()
-    {
-        return view('list');
+    public function list() {
+
+        $month = now()->format('m');
+
+        $attendances = Attendance::where('user_id',Auth::id())->whereMonth('date',$month)->get();
+
+        return view('list',compact('attendances'));
     }
 
     function detail()

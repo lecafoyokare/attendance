@@ -11,11 +11,13 @@ class Rest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'rest_start', 'rest_end'];
+    protected $fillable = ['attendance_id', 'rest_start', 'rest_end'];
 
     public function scopeRecordFind($query) {
-        return $query->where('user_id', Auth::id())
-            ->where('date', date('Y-m-d'))
+
+        $attendance_id = Attendance::TodayAttendance()->first()->id;
+
+        return $query->where('attendance_id', $attendance_id)
             ->whereNull('rest_end');
     }
 

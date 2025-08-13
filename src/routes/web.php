@@ -27,9 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
     Route::get('/attendance/rest_start', [AttendanceController::class, 'restStart']);
     Route::get('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
-    Route::get('list', [AttendanceController::class, 'list']);
-    Route::get('detail', [AttendanceController::class, 'detail']);
-    Route::post('request', [RequestController::class, 'list']);
+    Route::get('/attendance/list', [AttendanceController::class, 'list']);
+    Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
+    Route::post('/stamp_correction_request/list', [RequestController::class, 'list']);
 });
 
 

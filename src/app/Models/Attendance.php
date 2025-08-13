@@ -18,8 +18,19 @@ class Attendance extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function rest() {
+        $this->hasOne('App/Models/Rest');
+    }
+
     public function scopeTodayAttendance($query)
     {
         return $query->where('user_id', Auth::id())->where('date', date('Y-m-d'));
     }
+
+    protected $casts = [
+        'date' => 'date',
+        'clock_in' => 'datetime',
+        'clock_out' => 'datetime'
+    ];
+
 }

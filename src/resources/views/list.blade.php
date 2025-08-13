@@ -33,30 +33,16 @@
                 <th>会計</th>
                 <th>詳細</th>
             </tr>
-            <tr>
-                <td>06/01(木)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="">詳細</a></td>
-            </tr>
-            <tr>
-                <td>06/01(木)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="">詳細</a></td>
-            </tr>
-            <tr>
-                <td>06/01(木)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="">詳細</a></td>
-            </tr>
+            @foreach ($attendances as $attendance)
+                <tr>
+                    <td>{{ optional($attendance->date)->isoFormat('MM/DD (ddd)') }}</td>
+                    <td>{{ optional($attendance->clock_in)->format('H:i')}}</td>
+                    <td>{{ optional($attendance->clock_out)->format('H:i')}}</td>
+                    {{-- <td>{{ optional()}}</td> --}}<td></td>
+                    {{-- <td>{{ optional()}}</td> --}}<td></td>
+                    <td><a href="/attendance/{{$attendance->id}}">詳細</a></td>
+                </tr>
+            @endforeach
         </table>
         <div class="correction">
             <button>
