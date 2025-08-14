@@ -28,7 +28,7 @@ class AttendanceController extends Controller
 
         $check_out = Attendance::TodayAttendance()->
                         whereNotNull('clock_out')->exists();
-        
+
         switch (true) {
             case $check_out:
                 return 3;
@@ -41,7 +41,7 @@ class AttendanceController extends Controller
             case $check_in;
                 return 1;
                 break;
-                
+
             default:
                 return 0;
                 break;
@@ -51,13 +51,13 @@ class AttendanceController extends Controller
     public function clockIn(Request $request) {
 
         $now = now();
-        
+
         Attendance::create([
             'user_id'    => Auth::id(),
             'date' => $now->toDateString(),
             'clock_in'   => $now->toTimeString(),
         ]);
-        
+
         return back();
     }
 
@@ -73,12 +73,40 @@ class AttendanceController extends Controller
 
         Attendance::find($attendance->id)->update($data);
 
+        $this->workingTime();
+
         return back();
     }
 
+    public function workingTime() {
+
+        $attendance = Attendance::TodayAttendance()->first();
+        $clock_in = $attendance->clock_in;
+        $clock_out = $attendance->clock_out;
+        $rest = $attendance->rest;
+        $hours = $rest->hour;
+        $minutes = $rest->minute;
+        $seconds = $rest->second;
+
+        $totalTimeSeconds = strtotime($clock_out) - strtotime($clock_in);
+
+        $restTimeSeconds = $hours * 3600 + $minutes * 60 + $seconds;
+
+        $workTimeSeconds = $totalTimeSeconds - $restTimeSeconds;
+
+        $workTime = gmdate('H:i:s',$workTimeSeconds);
+
+        $data = [
+            'total' => $workTime,
+        ];
+
+        Attendance::find($attendance->id)->update($data);
+
+    }
+
     public function restStart() {
-        //画面が切り替わっていなかった場合のエラー回避
-        $recordCheck = Rest::RecordFind()->exists();
+       
+        $recordCheck = Rest::RecordFind()->exists(); //画面が切り替わっていなかった場合のエラー回避
 
         $attendance_id = Attendance::TodayAttendance()->first()->id;
 
@@ -150,8 +178,7 @@ class AttendanceController extends Controller
         return view('list',compact('attendances'));
     }
 
-    function detail()
-    {
+    public function detail() {
         return view('detail');
     }
 }

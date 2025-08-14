@@ -39,7 +39,7 @@
                     <td>{{ optional($attendance->clock_in)->format('H:i')}}</td>
                     <td>{{ optional($attendance->clock_out)->format('H:i')}}</td>
                     <td>{{ optional($attendance->rest)->format('H:i')}}</td>
-                    {{-- <td>{{ optional()}}</td> --}}<td></td>
+                    <td>{{ optional($attendance->total)->format('H:i')}}</td>
                     <td><a href="/attendance/{{$attendance->id}}">詳細</a></td>
                 </tr>
             @endforeach
