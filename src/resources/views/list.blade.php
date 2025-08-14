@@ -38,7 +38,7 @@
                     <td>{{ optional($attendance->date)->isoFormat('MM/DD (ddd)') }}</td>
                     <td>{{ optional($attendance->clock_in)->format('H:i')}}</td>
                     <td>{{ optional($attendance->clock_out)->format('H:i')}}</td>
-                    {{-- <td>{{ optional()}}</td> --}}<td></td>
+                    <td>{{ optional($attendance->rest)->format('H:i')}}</td>
                     {{-- <td>{{ optional()}}</td> --}}<td></td>
                     <td><a href="/attendance/{{$attendance->id}}">詳細</a></td>
                 </tr>

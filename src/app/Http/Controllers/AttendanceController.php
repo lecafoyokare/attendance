@@ -108,7 +108,36 @@ class AttendanceController extends Controller
 
         Rest::find($id)->update($data);
 
+        $this->restTotal();
+
         return back();
+
+    }
+
+    public function restTotal() {
+
+        $attendance_id = Attendance::TodayAttendance()->first()->id;
+
+        $rests = Rest::where('attendance_id',$attendance_id)->get();
+
+        $totalRestSeconds = 0;
+
+        foreach ($rests as $rest) {
+            if ($rest->rest_end && $rest->rest_start) {
+
+                $timeDifference = strtotime($rest->rest_end) - strtotime($rest->rest_start);
+
+                $totalRestSeconds += $timeDifference;
+            }
+        }
+
+        $totalRestTime = gmdate('H:i:s', $totalRestSeconds);
+
+        $data = [
+            'rest' => $totalRestTime,
+        ];
+
+        Attendance::find($attendance_id)->update($data);
 
     }
 

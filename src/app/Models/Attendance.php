@@ -11,7 +11,7 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'clock_in', 'clock_out'];
+    protected $fillable = ['user_id', 'date', 'clock_in', 'clock_out','rest','total'];
 
     public function user(): BelongsTo
     {
@@ -30,7 +30,9 @@ class Attendance extends Model
     protected $casts = [
         'date' => 'date',
         'clock_in' => 'datetime',
-        'clock_out' => 'datetime'
+        'clock_out' => 'datetime',
+        'rest' => 'datetime',
+        'total' =>  'datetime'
     ];
 
 }
