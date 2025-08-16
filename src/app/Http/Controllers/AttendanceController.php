@@ -178,7 +178,12 @@ class AttendanceController extends Controller
         return view('list',compact('attendances'));
     }
 
-    public function detail() {
-        return view('detail');
+    public function detail(Attendance $id) {
+
+        $data = [
+            'attendance' => $id,
+        ];
+
+        return view('detail',$data);
     }
 }

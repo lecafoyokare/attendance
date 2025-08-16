@@ -18,8 +18,8 @@ class Attendance extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function rest() {
-        $this->hasOne('App/Models/Rest');
+    public function rests() {
+        return $this->hasMany('App\Models\Rest');
     }
 
     public function scopeTodayAttendance($query)

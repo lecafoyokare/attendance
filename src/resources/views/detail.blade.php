@@ -13,14 +13,14 @@
         <table class="detail_list">
             <tr class="detail_item">
                 <th>名前</th>
-                <td>西　伶奈</td>
+                <td>{{Auth::user()->name}}</td>
             </tr>
             <tr class="detail_item">
                 <th>日付</th>
                 <td>
                     <div class="space top">
-                        <span class="space_item">2023年</span>
-                        <span class="space_item">6月1日</span>
+                        <span class="space_item">{{ optional($attendance->date)->isoFormat('Y年') }}</span>
+                        <span class="space_item">{{ optional($attendance->date)->isoFormat('M月D日') }}</span>
                     </div>
                 </td>
             </tr>
@@ -29,47 +29,33 @@
                 <td>
                     <div class="space">
                         <div class="space_item">
-                            <input type="text" value="09:00">
+                            <input type="text" value="{{ optional($attendance->clock_in)->format('H:i')}}">
                         </div>
                         <span class="space_item">～</span>
                         <div class="space_item">
-                            <input type="text" value="18:00">
+                            <input type="text" value="{{ optional($attendance->clock_out)->format('H:i')}}">
                         </div>
                     </div>
                 </td>
             </tr>
-            <tr class="detail_item">
-                <th>休憩</th>
-                <td>
-                    <div class="space">
-                        <div class="space">
-                            <div class="space_item">
-                                <input type="text" value="09:00">
+            @if($attendance->rests->isNotEmpty())
+                @foreach($attendance->rests as $index => $rest)
+                    <tr class="detail_item">
+                        <th>休憩{{ $index + 1 }}</th>
+                        <td>
+                            <div class="space">
+                                <div class="space_item">
+                                    <input type="text" value="{{ optional($rest->rest_start)->format('H:i') }}">
+                                </div>
+                                <span class="space_item">～</span>
+                                <div class="space_item">
+                                    <input type="text" value="{{ optional($rest->rest_end)->format('H:i') }}">
+                                </div>
                             </div>
-                            <span class="space_item">～</span>
-                            <div class="space_item">
-                                <input type="text" value="18:00">
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="detail_item">
-                <th>休憩2</th>
-                <td>
-                    <div class="space">
-                        <div class="space">
-                            <div class="space_item">
-                                <input type="text" value="09:00">
-                            </div>
-                            <span class="space_item">～</span>
-                            <div class="space_item">
-                                <input type="text" value="18:00">
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             <tr class="detail_item">
                 <th>備考</th>
                 <td>

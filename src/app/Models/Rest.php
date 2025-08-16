@@ -21,4 +21,9 @@ class Rest extends Model
             ->whereNull('rest_end');
     }
 
+    protected $casts = [
+        'rest_start' => 'datetime',
+        'rest_end' => 'datetime',
+    ];
+
 }
