@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
-use app\Http\Controllers\RequestController;
+use App\Http\Controllers\RequestController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,7 @@ use app\Http\Controllers\RequestController;
 // Route::get('login', [AuthController::class, 'login']);
 // Route::post('login', [AuthController::class, 'loginPost']);
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('attendance', [AttendanceController::class, 'attendance']);
     Route::get('/attendance/clock_in', [AttendanceController::class, 'clockIn']);
     Route::get('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
@@ -29,14 +31,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
     Route::get('/attendance/list', [AttendanceController::class, 'list']);
     Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
-    Route::post('/stamp_correction_request/list', [RequestController::class, 'list']);
+    // Route::post('/stamp_correction_request/list', [RequestController::class, 'list']);
 });
 
+Route::get('/email/verify', function () {
+    return view('Auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-
-Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])
-    ->name('attendance.breakStart');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/attendance');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 // Route::get('/', function () {
 //     return view('welcome');

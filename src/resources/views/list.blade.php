@@ -17,7 +17,7 @@
             </div>
             <form action="" class="calendar_form">
                 <label>
-                    <input type="date" />
+                    <input type="date" value="{{$currentDate}}"/>
                 </label>
             </form>
             <div class="month">
@@ -33,15 +33,26 @@
                 <th>会計</th>
                 <th>詳細</th>
             </tr>
-            @foreach ($attendances as $attendance)
-                <tr>
-                    <td>{{ optional($attendance->date)->isoFormat('MM/DD (ddd)') }}</td>
-                    <td>{{ optional($attendance->clock_in)->format('H:i')}}</td>
-                    <td>{{ optional($attendance->clock_out)->format('H:i')}}</td>
-                    <td>{{ optional($attendance->rest)->format('H:i')}}</td>
-                    <td>{{ optional($attendance->total)->format('H:i')}}</td>
-                    <td><a href="/attendance/{{$attendance->id}}">詳細</a></td>
-                </tr>
+            @foreach ($dates as $date)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($date)->isoFormat('MM/DD (ddd)') }}</td>
+                @if (isset($attendancesDate[$date]))
+                    @php
+                        $attendance = $attendancesDate[$date];
+                    @endphp
+                    <td>{{ optional($attendance->clock_in)->format('H:i') }}</td>
+                    <td>{{ optional($attendance->clock_out)->format('H:i') }}</td>
+                    <td>{{ optional($attendance->rest)->format('H:i') }}</td>
+                    <td>{{ optional($attendance->total)->format('H:i') }}</td>
+                    <td><a href="/attendance/{{ $attendance->id }}">詳細</a></td>
+                @else
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>詳細</td>
+                @endif
+            </tr>
             @endforeach
         </table>
         <div class="correction">

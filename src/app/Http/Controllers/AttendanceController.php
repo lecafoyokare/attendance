@@ -6,6 +6,8 @@ use App\Models\Attendance;
 use App\Models\Rest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use DateTime;
 
 class AttendanceController extends Controller
 {
@@ -170,12 +172,31 @@ class AttendanceController extends Controller
     }
 
     public function list() {
+        
+        $currentDate = Carbon::now()->isoFormat('YYYY-MM-DD');
 
-        $month = now()->format('m');
+        $year = date('Y');
+        $month = date('m');
 
-        $attendances = Attendance::where('user_id',Auth::id())->whereMonth('date',$month)->get();
+        $daysInMonth = Carbon::create($year, $month)->daysInMonth;
 
-        return view('list',compact('attendances'));
+        $dates = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dates[] = Carbon::create($year, $month, $day)->toDateString();
+        }
+
+        $attendances = Attendance::where('user_id', Auth::id())
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        $attendancesDate = [];
+        foreach ($attendances as $attendance) {
+            $dateKey = (new DateTime($attendance->date))->format('Y-m-d');
+            $attendancesDate[$dateKey] = $attendance;
+        }
+
+        return view('list', compact('dates', 'attendancesDate','currentDate'));
     }
 
     public function detail(Attendance $id) {
