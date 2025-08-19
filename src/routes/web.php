@@ -48,7 +48,3 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     $request->fulfill();
     return redirect('/attendance');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
