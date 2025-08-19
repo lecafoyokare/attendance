@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\Rest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use DateTime;
 
@@ -172,11 +173,16 @@ class AttendanceController extends Controller
     }
 
     public function list() {
-        
-        $currentDate = Carbon::now()->isoFormat('YYYY-MM-DD');
 
-        $year = date('Y');
-        $month = date('m');
+        $now = now();
+
+        $displayDate = $now->isoFormat('YYYY-MM-DD');
+
+        $previousMonth = $now->copy()->subMonth();
+        $nextMonth = $now->copy()->addMonth();
+
+        $year = $now->year;
+        $month = $now->month;
 
         $daysInMonth = Carbon::create($year, $month)->daysInMonth;
 
@@ -196,7 +202,40 @@ class AttendanceController extends Controller
             $attendancesDate[$dateKey] = $attendance;
         }
 
-        return view('list', compact('dates', 'attendancesDate','currentDate'));
+        return view('list', compact('dates', 'attendancesDate','displayDate', 'previousMonth', 'nextMonth'));
+    }
+
+    public function listByMonth($year = null, $month = null)
+    {
+        $baseDate = ($year && $month) ? Carbon::create($year, $month, 1) : Carbon::now();
+
+        $displayDate = $baseDate->isoFormat('YYYY-MM-DD');
+
+        $previousMonth = $baseDate->copy()->subMonth();
+        $nextMonth = $baseDate->copy()->addMonth();
+
+        $year = $baseDate->year;
+        $month = $baseDate->month;
+
+        $daysInMonth = $baseDate->daysInMonth;
+
+        $dates = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dates[] = Carbon::create($year, $month, $day)->toDateString();
+        }
+
+        $attendances = Attendance::where('user_id', Auth::id())
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        $attendancesDate = [];
+        foreach ($attendances as $attendance) {
+            $dateKey = (new DateTime($attendance->date))->format('Y-m-d');
+            $attendancesDate[$dateKey] = $attendance;
+        }
+
+        return view('list', compact('dates', 'attendancesDate', 'displayDate', 'previousMonth', 'nextMonth'));
     }
 
     public function detail(Attendance $id) {

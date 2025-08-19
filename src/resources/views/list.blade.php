@@ -13,15 +13,15 @@
         </h2>
         <div class="calendar">
             <div class="month">
-                <a href="">&larr;<span>前月</span></a>
+                <a href="{{ route('list.byMonth', ['year' => $previousMonth->year, 'month' => $previousMonth->month]) }}">&larr;<span>前月</span></a>
             </div>
             <form action="" class="calendar_form">
                 <label>
-                    <input type="date" value="{{$currentDate}}"/>
+                    <input type="date" value="{{$displayDate}}"/>
                 </label>
             </form>
             <div class="month">
-                <a href=""><span>翌月</span>&rarr;</a>
+                <a href="{{ route('list.byMonth', ['year' => $nextMonth->year, 'month' => $nextMonth->month]) }}"><span>翌月</span>&rarr;</a>
             </div>
         </div>
         <table class="table">

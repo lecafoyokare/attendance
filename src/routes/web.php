@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/attendance/rest_start', [AttendanceController::class, 'restStart']);
     Route::get('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
     Route::get('/attendance/list', [AttendanceController::class, 'list']);
+    Route::get('/attendance/list/{year?}/{month?}', [AttendanceController::class, 'listByMonth'])->name('list.byMonth');
     Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
     // Route::post('/stamp_correction_request/list', [RequestController::class, 'list']);
 });
