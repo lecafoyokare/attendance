@@ -12,14 +12,12 @@
         </h2>
         <div class="screen_selection">
             <div class="screen_selection_item">
-                <form action="">
-                    <button class="waithing_for_approval" onclick="">
-                        承認待ち
-                    </button>
-                    <button class="approved" onclick="">
-                        承認済み
-                    </button>
-                </form>
+                <button class="waithing_for_approval">
+                    <a href="/stamp_correction_request/list">承認待ち</a>
+                </button>
+                <button class="approved">
+                    <a href="/stamp_correction_request/list/approved">承認済み</a>
+                </button>
             </div>
         </div>
         <table class="table">
@@ -31,22 +29,16 @@
                 <th class="txt_left">申請日時</th>
                 <th class="txt_left">詳細</th>
             </tr>
+            @foreach ($approvals as $approval)
             <tr>
                 <td>承認待ち</td>
-                <td class="txt_left">西怜奈</td>
-                <td class="txt_left">2023/06/01</td>
-                <td class="txt_left">遅延のため</td>
-                <td class="txt_left">2023/06/02</td>
+                <td class="txt_left">{{ $approval->user->name }}</td>
+                <td class="txt_left">{{ $approval->date->format('Y/m/d') }}</td>
+                <td class="txt_left">{{ $approval->reason }}</td>
+                <td class="txt_left">{{ $approval->created_at->format('Y/m/d') }}</td>
                 <td class="txt_left"><a href="">詳細</a></td>
             </tr>
-            <tr>
-                <td>承認待ち</td>
-                <td class="txt_left">西怜奈</td>
-                <td class="txt_left">2023/06/01</td>
-                <td class="txt_left">遅延のため</td>
-                <td class="txt_left">2023/06/02</td>
-                <td class="txt_left"><a href="">詳細</a></td>
-            </tr>
+            @endforeach
         </table>
     </div>
 </div>

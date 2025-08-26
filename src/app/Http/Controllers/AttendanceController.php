@@ -76,14 +76,17 @@ class AttendanceController extends Controller
 
         Attendance::find($attendance->id)->update($data);
 
-        $this->workingTime();
+        $attendance_id = Attendance::TodayAttendance()->first()->id;
+
+        $this->workingTime($attendance_id);
 
         return back();
     }
 
-    public function workingTime() {
+    public function workingTime($attendance_id) {
 
-        $attendance = Attendance::TodayAttendance()->first();
+        $attendance = Attendance::find($attendance_id);
+
         $clock_in = $attendance->clock_in;
         $clock_out = $attendance->clock_out;
         $rest = $attendance->rest;
@@ -139,15 +142,15 @@ class AttendanceController extends Controller
 
         Rest::find($id)->update($data);
 
-        $this->restTotal();
+        $attendance_id = Attendance::TodayAttendance()->first()->id;
+
+        $this->restTotal($attendance_id);
 
         return back();
 
     }
 
-    public function restTotal() {
-
-        $attendance_id = Attendance::TodayAttendance()->first()->id;
+    public function restTotal($attendance_id) {
 
         $rests = Rest::where('attendance_id',$attendance_id)->get();
 
@@ -176,7 +179,7 @@ class AttendanceController extends Controller
 
         $baseDate = ($year && $month) ? Carbon::create($year, $month, 1) : Carbon::now();
 
-        $displayDate = $baseDate->isoFormat('YYYY-MM-DD');
+        $displayDate = $baseDate->format('Y-m-d');
 
         $previousMonth = $baseDate->copy()->subMonth();
         $nextMonth = $baseDate->copy()->addMonth();
@@ -206,6 +209,10 @@ class AttendanceController extends Controller
     }
 
     public function detail(Attendance $id) {
+
+        session()->put('attendance_id', $id->id);
+
+        session()->put('rests_id', $id->rests->pluck('id'));
 
         $data = [
             'attendance' => $id,

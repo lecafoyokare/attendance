@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CorrectionController;
 use App\Http\Controllers\RequestController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -18,21 +19,26 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('register', [AuthController::class, 'register']);
-// Route::post('register', [AuthController::class, 'registerPost']);
-// Route::get('login', [AuthController::class, 'login']);
-// Route::post('login', [AuthController::class, 'loginPost']);
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('attendance', [AttendanceController::class, 'attendance']);
-    Route::get('/attendance/clock_in', [AttendanceController::class, 'clockIn']);
-    Route::get('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
-    Route::get('/attendance/rest_start', [AttendanceController::class, 'restStart']);
-    Route::get('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
+    Route::get('attendance', [AttendanceController::class, 'attendance'])->middleware('home');
+    Route::post('/attendance/clock_in', [AttendanceController::class, 'clockIn']);
+    Route::post('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
+    Route::post('/attendance/rest_start', [AttendanceController::class, 'restStart']);
+    Route::post('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
     Route::get('/attendance/list', [AttendanceController::class, 'list']);
     Route::get('/attendance/list/{year?}/{month?}', [AttendanceController::class, 'list'])->name('list.byMonth');
     Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
-    // Route::post('/stamp_correction_request/list', [RequestController::class, 'list']);
+    Route::post('/correction/update', [CorrectionController::class, 'update']);
+    Route::get('/stamp_correction_request/list', [RequestController::class, 'list']);
+    Route::get('/stamp_correction_request/list/approved', [RequestController::class, 'approvedList'])->name('stamp_correction_request.approved');
+});
+
+Route::group(['middleware' => ['auth', 'verified','admin']], function () {
+    Route::get('/admin/attendance/list/{year?}/{month?}/{day?}', [AdminController::class, 'list'])->name('admin.list');
+    Route::get('/admin/staff/list', [AdminController::class, 'staffList'])->name('admin.staff.list');
+    Route::get('/admin/attendance/staff/{id}', [AdminController::class, 'staffAttendance'])->name('admin.attendance.staff');
 });
 
 Route::get('/email/verify', function () {

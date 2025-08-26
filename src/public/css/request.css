@@ -48,13 +48,18 @@
 
 .screen_selection_item button {
     border: none;
-    font-size: 15px;
-    letter-spacing: 2px;
     background-color: #ececec;
 }
 
 .screen_selection_item button:hover {
     opacity: 0.5;
+}
+
+.screen_selection_item a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    letter-spacing: 2px;
 }
 
 .approved {

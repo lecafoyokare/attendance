@@ -8,8 +8,11 @@
 <div class="login">
     <div class="login_form">
         <h2 class="login_ttl">
-                <!-- 管理者 -->
+            @if (Route::is('admin.login'))
+                管理者
+            @else
                 ログイン
+            @endif
         </h2>
         <form id="login_form" action="/login" method="post">
         @csrf
@@ -26,10 +29,12 @@
         </form>
         <div class="login_form_btn">
             <button form="login_form" type="submit">
-                ログインする
+                @if (Route::is('admin.login')) 管理者 @endif ログインする
             </button>
         </div>
-        <a href="/register" class="register_link">会員登録はこちら</a>
+        @if (! Route::is('admin.login'))
+            <a href="/register" class="register_link">会員登録はこちら</a>
+        @endif
     </div>
 </div>
 @endsection

@@ -34,18 +34,28 @@
                     @break
 
                 @case(2)
-                    <button class="btn_white"><a href="/attendance/rest_end" class="btn_white">休憩戻</a></button>
+                    <form action="/attendance/rest_end" method="post">
+                        @csrf
+                        <button type="submit" class="btn_white">休憩戻</button>
+                    </form>
                     @break
                     
                 @case(1)
-                    <button><a href="/attendance/clock_out">退勤</a></button>
-                    <button class="btn_white">
-                        <a href="/attendance/rest_start" class="btn_white">休憩入</a>
-                    </button>
+                    <form action="/attendance/clock_out" method="post">
+                        @csrf
+                        <button type="submit">退勤</button>
+                    </form>
+                    <form action="/attendance/rest_start" method="post">
+                        @csrf
+                        <button type="submit" class="btn_white">休憩入</button>
+                    </form>
                     @break
                 
                 @case(0)
-                    <button><a href="/attendance/clock_in">出勤</a></button>
+                    <form action="/attendance/clock_in" method="post">
+                    @csrf
+                        <button type="submit">出勤</button>
+                    </form>
                     @break
                     
             @endswitch
@@ -65,6 +75,16 @@
             display: flex;
             justify-content: space-between;
             @break
+    @endswitch
+}
+
+.attendance_btn form {
+    @switch($status)
+        @case(3)
+        @case(2)
+        @case(0)
+        display: inline-block;
+        @break
     @endswitch
 }
 </style>
