@@ -15,7 +15,7 @@
                 <a class="header_logo">
                     <img src="{{asset("img/logo.svg")}}" alt="" class="header-logo">
                 </a>
-                @if (Auth::check())
+                @if (Auth::check() && ! Route::is('verification.notice'))
                 <nav class="responsive_btn">
                     <div class="menu_line"></div>
                     <div class="menu_line"></div>

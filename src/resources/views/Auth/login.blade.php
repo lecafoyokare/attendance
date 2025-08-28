@@ -19,7 +19,7 @@
             <div class="login_form_item">
                 <span>メールアドレス</span>
                 <input type="email" name="email" value="{{ old('email') }}" />
-                <sapn class="error">@error('email'){{ $message }}@enderror</sapn>
+                <span class="error">@error('email'){{ $message }}@enderror</span>
             </div>
             <div class="login_form_item">
                 <span>パスワード</span>

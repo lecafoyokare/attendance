@@ -216,6 +216,7 @@ class AttendanceController extends Controller
 
         $data = [
             'attendance' => $id,
+            'status' => $id->approval_status,
         ];
 
         return view('detail',$data);

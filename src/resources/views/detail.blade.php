@@ -71,26 +71,43 @@
             </table>
         </form>
         <div class="correction">
-            <button type="submit" form="correction_form">
-                修正
-            </button>
-            <!-- <span class="error">*承認待ちのため修正はできません。</span> -->
-            <!-- <form action="">
-                <input type="hidden" name="id" value="">
-                <button>承認</button>
-            </form> -->
-            {{-- <div class="approved">承認済み</div> --}}
+            @switch ($status)
+                @case(0)
+                    <button type="submit" form="correction_form">
+                        修正
+                    </button>
+                    @break
+
+                @case(1)
+                    <span class="waiting_for_approval">*承認待ちのため修正はできません。</span>
+                    @break
+
+                @case(3)
+                    <form action="">
+                        <input type="hidden" name="id" value="">
+                        <button>承認</button>
+                    </form>
+
+                @case(4)
+                    <div class="approved">承認済み</div>
+
+            @endswitch
         </div>
     </div>
 </div>
 
 <style>
-    /* .waithing_for_approval {
-        font-weight: 600;
-    }
+    @switch ($status)
+        @case(0)
+        @case(4)
+            .waiting_for_approval {
+                font-weight: 600;
+            }
 
-    .approved {
-        font-weight: 600;
-    } */
+            .approved {
+                font-weight: 600;
+            }
+            @break
+    @endswitch
 </style>
 @endsection

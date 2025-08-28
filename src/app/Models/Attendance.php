@@ -11,7 +11,7 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'clock_in', 'clock_out','rest','total'];
+    protected $fillable = ['user_id', 'date', 'clock_in', 'clock_out','rest','total','reason','approval_status'];
 
     public function user(): BelongsTo
     {

@@ -12,21 +12,26 @@ class CorrectionController extends Controller
 
         $attendance_id = session('attendance_id');
         $rests_id = session('rests_id');
+        $status = 1;
 
         $data = [
             'clock_in' => $request->clock_in,
             'clock_out' => $request->clock_out,
+            'reason' => $request->reason,
+            'approval_status' => $status,
         ];
 
         $attendance = Attendance::findOrFail($attendance_id)->update($data);
 
-        // if (count($rests_id) === 0) {
-        //     // セッションから取得した配列の要素数が0の場合の処理
-        //     echo "レストランIDのリストは空です。";
-        // } else {
-        //     // 要素数が1以上の場合の処理
-        //     echo "レストランIDのリストに要素が含まれています。";
-        // }
+        if (count($rests_id) !== 0) {
+            foreach ($request->rest_start as $index => $rest_start) {
+                $restData = [
+                    'rest_start' => $rest_start,
+                    'rest_end' => $request->rest_end[$index],
+                ];
+                Rest::findOrFail($rests_id[$index])->update($restData);
+            }
+        }
 
         $attendanceController = new AttendanceController();
         $attendanceController->restTotal($attendance_id);
