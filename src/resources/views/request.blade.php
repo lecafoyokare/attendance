@@ -31,7 +31,7 @@
             </tr>
             @foreach ($approvals as $approval)
             <tr>
-                <td>承認待ち</td>
+                <td>{{ $approval->approval_status === 1 ? ' 承認待ち' : '承認済み' }}</td>
                 <td class="txt_left">{{ $approval->user->name }}</td>
                 <td class="txt_left">{{ $approval->date->format('Y/m/d') }}</td>
                 <td class="txt_left">{{ $approval->reason }}</td>

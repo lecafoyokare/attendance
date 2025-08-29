@@ -57,7 +57,7 @@
         </table>
         <div class="correction">
             <button>
-                CSV出力
+                <a href="/csv-download">CSV出力</a>
             </button>
         </div>
     </div>

@@ -87,9 +87,11 @@
                         <input type="hidden" name="id" value="">
                         <button>承認</button>
                     </form>
+                    @break
 
                 @case(4)
                     <div class="approved">承認済み</div>
+                    @break
 
             @endswitch
         </div>

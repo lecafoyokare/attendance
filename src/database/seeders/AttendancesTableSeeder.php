@@ -24,7 +24,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '03:00:00',
             'total' => '06:00:00',
             'reason' => 'reason',
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-27 16:45:34'),
             'updated_at' => null,
         ];
@@ -39,7 +39,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:00',
             'total' => '00:00:00',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-27 16:33:52'),
             'updated_at' => null,
         ];
@@ -54,8 +54,8 @@ class AttendancesTableSeeder extends Seeder
             'rest' => null,
             'total' => null,
             'reason' => null,
-            'approval_status' => 0,
-            'created_at' => null,
+            'approval_status' => null,
+            'created_at' => Carbon::parse('2025-08-27 16:33:52'),
             'updated_at' => null,
         ];
         DB::table('attendances')->insert($param);
@@ -69,7 +69,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:00',
             'total' => '00:00:02',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-18 20:14:19'),
             'updated_at' => Carbon::parse('2025-08-27 01:23:36'),
         ];
@@ -84,7 +84,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:58',
             'total' => '00:00:46',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-19 23:36:25'),
             'updated_at' => Carbon::parse('2025-08-19 23:38:09'),
         ];
@@ -99,7 +99,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:01',
             'total' => '00:00:02',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-19 23:39:28'),
             'updated_at' => Carbon::parse('2025-08-19 23:39:31'),
         ];
@@ -114,7 +114,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:05',
             'total' => '00:30:45',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-25 00:48:10'),
             'updated_at' => Carbon::parse('2025-08-25 01:19:00'),
         ];
@@ -129,7 +129,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => null,
             'total' => null,
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-26 19:04:05'),
             'updated_at' => Carbon::parse('2025-08-26 19:04:05'),
         ];
@@ -144,7 +144,7 @@ class AttendancesTableSeeder extends Seeder
             'rest' => '00:00:00',
             'total' => '00:43:42',
             'reason' => null,
-            'approval_status' => 0,
+            'approval_status' => null,
             'created_at' => Carbon::parse('2025-08-27 00:47:54'),
             'updated_at' => Carbon::parse('2025-08-27 01:31:36'),
         ];

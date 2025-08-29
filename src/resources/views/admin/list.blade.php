@@ -47,11 +47,6 @@
             </tr>
             @endforeach
         </table>
-        <div class="correction">
-            <button>
-                CSV出力
-            </button>
-        </div>
     </div>
 </div>
 
@@ -59,11 +54,10 @@
     document.getElementById('date-picker').addEventListener('change', function() {
         const selectedDate = new Date(this.value);
         const year = selectedDate.getFullYear();
-        const month = selectedDate.getMonth() + 1; // getMonth()は0から始まるため+1する
+        const month = selectedDate.getMonth() + 1;
         const day = selectedDate.getDate();
 
-        // admin.list ルートにリダイレクト
-        window.location.href = `/admin/list/${year}/${month}/${day}`;
+        window.location.href = `/admin/attendance/list/${year}/${month}/${day}`;
     });
 </script>
 @endsection

@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CorrectionController;
 use App\Http\Controllers\RequestController;
+use App\Models\Attendance;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/attendance/rest_end', [AttendanceController::class, 'restEnd']);
     Route::get('/attendance/list', [AttendanceController::class, 'list']);
     Route::get('/attendance/list/{year?}/{month?}', [AttendanceController::class, 'list'])->name('list.byMonth');
+    Route::get('/csv-download', [AttendanceController::class, 'downloadCsv']);
     Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
     Route::post('/correction/update', [CorrectionController::class, 'update']);
     Route::get('/stamp_correction_request/list', [RequestController::class, 'list']);
