@@ -8,8 +8,7 @@
 <div class="list">
     <div  id="list_inner" class="list_inner">
         <h2 class="list_ttl">
-                勤怠一覧
-                <!-- 西玲奈さんの勤怠 -->
+            勤怠一覧
         </h2>
         <div class="calendar">
             <div class="month">

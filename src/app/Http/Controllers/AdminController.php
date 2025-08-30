@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 use App\Models\Attendance;
 use App\Models\Rest;
 use Illuminate\Http\Request;
@@ -35,5 +36,47 @@ class AdminController extends Controller
                         ->get();
 
         return view('admin.list', compact('attendances', 'displayDate', 'previousday', 'nextday'));
+    }
+
+    public function staffList()
+    {
+        $users = User::where('role', 'staff')->get();
+        return view('admin.staff', compact('users'));
+    }
+
+    public function staffAttendance(User $id, $year = null, $month = null) {
+
+        $user_name = $id->name;
+
+        $baseDate = ($year && $month) ? Carbon::create($year, $month, 1) : Carbon::now();
+
+        $displayDate = $baseDate->format('Y-m-d');
+
+        $previousMonth = $baseDate->copy()->subMonth();
+        $nextMonth = $baseDate->copy()->addMonth();
+
+        $year = $baseDate->year;
+        $month = $baseDate->month;
+        $user_id = $id->id;
+
+        $daysInMonth = $baseDate->daysInMonth;
+
+        $dates = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dates[] = Carbon::create($year, $month, $day)->toDateString();
+        }
+
+        $attendances = Attendance::where('user_id', $user_id)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        $attendancesDate = [];
+        foreach ($attendances as $attendance) {
+            $dateKey = (new DateTime($attendance->date))->format('Y-m-d');
+            $attendancesDate[$dateKey] = $attendance;
+        }
+
+        return view('admin.staff_attendance', compact('user_name', 'dates', 'attendancesDate', 'displayDate', 'user_id', 'previousMonth', 'nextMonth'));
     }
 }

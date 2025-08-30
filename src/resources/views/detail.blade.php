@@ -15,7 +15,7 @@
             <table class="detail_list">
                 <tr class="detail_item">
                     <th>名前</th>
-                    <td>{{Auth::user()->name}}</td>
+                    <td>{{ $user_name }}</td>
                 </tr>
                 <tr class="detail_item">
                     <th>日付</th>

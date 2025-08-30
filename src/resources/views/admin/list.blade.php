@@ -8,11 +8,7 @@
 <div class="list">
     <div  id="list_inner" class="list_inner">
         <h2 class="list_ttl">
-            @if (Route::is('admin.list'))
-                {{$displayDate->isoFormat('YYYY年MM月DD日')}} の勤怠一覧
-            @else
-                勤怠一覧
-            @endif
+            {{$displayDate->isoFormat('YYYY年MM月DD日')}} の勤怠一覧
         </h2>
         <div class="calendar">
             <div class="month">

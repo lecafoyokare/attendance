@@ -245,9 +245,18 @@ class AttendanceController extends Controller
 
         session()->put('rests_id', $id->rests->pluck('id'));
 
+        $user_name = User::find($id->user_id)->name;
+
+        if (Auth::user()->role === 'admin') {
+            $status = null;
+        } else {
+            $status = $id->approval_status;
+        }
+
         $data = [
+            'user_name' => $user_name,
             'attendance' => $id,
-            'status' => $id->approval_status,
+            'status' => $status,
         ];
 
         return view('detail',$data);

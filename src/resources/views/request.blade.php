@@ -36,7 +36,7 @@
                 <td class="txt_left">{{ $approval->date->format('Y/m/d') }}</td>
                 <td class="txt_left">{{ $approval->reason }}</td>
                 <td class="txt_left">{{ $approval->created_at->format('Y/m/d') }}</td>
-                <td class="txt_left"><a href="">詳細</a></td>
+                <td class="txt_left"><a href="/attendance/{{ $approval->id }}">詳細</a></td>
             </tr>
             @endforeach
         </table>

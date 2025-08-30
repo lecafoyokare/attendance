@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class RequestController extends Controller
 {
-    public function list() {
+    public function waitingList() {
 
         $approvals = Attendance::where('user_id', Auth::id())
                                 ->where('approval_status', 1)->get();
+
+        return view('request', compact('approvals'));
+    }
+
+    public function adminWaitingList() {
+
+        $approvals = Attendance::where('approval_status', 1)->get();
 
         return view('request', compact('approvals'));
     }
@@ -24,7 +31,10 @@ class RequestController extends Controller
         return view('request', compact('approvals'));
     }
 
-    public function staff() {
-        return view('staff');
+    public function adminApprovedList() {
+
+        $approvals = Attendance::where('approval_status', 4)->get();
+
+        return view('request', compact('approvals'));
     }
 }
