@@ -15,7 +15,7 @@
             <table class="detail_list">
                 <tr class="detail_item">
                     <th>名前</th>
-                    <td>{{ $user_name }}</td>
+                    <td>{{ $user_name }}</td
                 </tr>
                 <tr class="detail_item">
                     <th>日付</th>
@@ -82,14 +82,14 @@
                     <span class="waiting_for_approval">*承認待ちのため修正はできません。</span>
                     @break
 
-                @case(3)
+                @case(2)
                     <form action="">
                         <input type="hidden" name="id" value="">
                         <button>承認</button>
                     </form>
                     @break
 
-                @case(4)
+                @case(3)
                     <div class="approved">承認済み</div>
                     @break
 

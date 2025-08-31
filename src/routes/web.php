@@ -34,15 +34,17 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/attendance/{id}', [AttendanceController::class, 'detail']);
     Route::post('/correction/update', [CorrectionController::class, 'update']);
     Route::get('/stamp_correction_request/list', [RequestController::class, 'waitingList'])->middleware('redirectIfAdmin');
-    Route::get('/stamp_correction_request/list/approved', [RequestController::class, 'approvedList'])->name('stamp_correction_request.approved')->middleware('redirectIfAdmin');
+    Route::get('/stamp_correction_request/list/approved', [RequestController::class, 'approvedList'])->middleware('redirectIfAdmin');
 });
 
 Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     Route::get('/admin/attendance/list/{year?}/{month?}/{day?}', [AdminController::class, 'list'])->name('admin.list');
-    Route::get('/admin/staff/list', [AdminController::class, 'staffList'])->name('admin.staff.list');
+    Route::get('/admin/staff/list', [AdminController::class, 'staffList']);
     Route::get('/admin/attendance/staff/{id}/{year?}/{month?}', [AdminController::class, 'staffAttendance'])->name('admin.attendance.staff');
     Route::get('/admin/stamp_correction_request/list', [RequestController::class, 'adminWaitingList']);
     Route::get('/admin/stamp_correction_request/list/approved', [RequestController::class, 'adminApprovedList']);
+    Route::get('/admin/stamp_correction_request/approve/{attendance_correct_request}', [RequestController::class, 'approve']);
+    Route::post('/admin/stamp_correction_request/approve', [RequestController::class, 'approveProcess']);
 });
 
 Route::get('/email/verify', function () {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AttendanceController extends Controller
@@ -113,7 +114,7 @@ class AttendanceController extends Controller
     }
 
     public function restStart() {
-       
+
         $recordCheck = Rest::RecordFind()->exists(); //画面が切り替わっていなかった場合のエラー回避
 
         $attendance_id = Attendance::TodayAttendance()->first()->id;
@@ -183,8 +184,8 @@ class AttendanceController extends Controller
 
         $displayDate = $baseDate->format('Y-m-d');
 
-        $previousMonth = $baseDate->copy()->subMonth();
-        $nextMonth = $baseDate->copy()->addMonth();
+        $previousMonth = $baseDate->copy()->subMonthNoOverflow();
+        $nextMonth = $baseDate->copy()->addMonthNoOverflow();
 
         $year = $baseDate->year;
         $month = $baseDate->month;
@@ -207,7 +208,15 @@ class AttendanceController extends Controller
             $attendancesDate[$dateKey] = $attendance;
         }
 
-        return view('list', compact('dates', 'attendancesDate', 'displayDate', 'previousMonth', 'nextMonth'));
+        $param = [
+            'dates' => $dates,
+            'attendancesDate' => $attendancesDate,
+            'displayDate' => $displayDate,
+            'previousMonth' => $previousMonth,
+            'nextMonth' => $nextMonth
+        ];
+
+        return view('list', $param);
     }
 
     public function downloadCsv()
@@ -245,12 +254,16 @@ class AttendanceController extends Controller
 
         session()->put('rests_id', $id->rests->pluck('id'));
 
-        $user_name = User::find($id->user_id)->name;
+        $user_name = $id->user->name;
 
-        if (Auth::user()->role === 'admin') {
-            $status = null;
+        $previousUrl = URL::previous();
+
+        $previousRouteName = app('router')->getRoutes()->match(app('request')->create($previousUrl))->getName();
+
+        if ($previousRouteName === 'admin.list') {
+                $status = 0;
         } else {
-            $status = $id->approval_status;
+                $status = $id->approval_status;
         }
 
         $data = [

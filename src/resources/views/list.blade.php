@@ -54,11 +54,6 @@
             </tr>
             @endforeach
         </table>
-        <div class="correction">
-            <button>
-                <a href="/csv-download">CSV出力</a>
-            </button>
-        </div>
     </div>
 </div>
 @endsection

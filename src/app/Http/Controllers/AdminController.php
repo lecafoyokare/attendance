@@ -11,13 +11,11 @@ use DateTime;
 
 class AdminController extends Controller
 {
-    public function login()
-    {
+    public function login() {
         return view('Auth.login');
     }
 
-    public function list($year = null, $month = null,$day = null)
-    {
+    public function list($year = null, $month = null,$day = null) {
 
         $baseDate = ($year && $month && $day) ? Carbon::create($year, $month, $day) : Carbon::now();
 
@@ -38,8 +36,7 @@ class AdminController extends Controller
         return view('admin.list', compact('attendances', 'displayDate', 'previousday', 'nextday'));
     }
 
-    public function staffList()
-    {
+    public function staffList() {
         $users = User::where('role', 'staff')->get();
         return view('admin.staff', compact('users'));
     }
@@ -52,8 +49,8 @@ class AdminController extends Controller
 
         $displayDate = $baseDate->format('Y-m-d');
 
-        $previousMonth = $baseDate->copy()->subMonth();
-        $nextMonth = $baseDate->copy()->addMonth();
+        $previousMonth = $baseDate->copy()->subMonthNoOverflow();
+        $nextMonth = $baseDate->copy()->addMonthNoOverflow();
 
         $year = $baseDate->year;
         $month = $baseDate->month;
@@ -77,6 +74,16 @@ class AdminController extends Controller
             $attendancesDate[$dateKey] = $attendance;
         }
 
-        return view('admin.staff_attendance', compact('user_name', 'dates', 'attendancesDate', 'displayDate', 'user_id', 'previousMonth', 'nextMonth'));
+        $param = [
+            'user_name' => $user_name,
+            'dates' => $dates,
+            'attendancesDate' => $attendancesDate,
+            'displayDate' => $displayDate,
+            'user_id' => $user_id,
+            'previousMonth' => $previousMonth,
+            'nextMonth' => $nextMonth
+        ];
+
+        return view('admin.staff_attendance', $param);
     }
 }

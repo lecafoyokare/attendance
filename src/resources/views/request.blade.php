@@ -36,7 +36,11 @@
                 <td class="txt_left">{{ $approval->date->format('Y/m/d') }}</td>
                 <td class="txt_left">{{ $approval->reason }}</td>
                 <td class="txt_left">{{ $approval->created_at->format('Y/m/d') }}</td>
-                <td class="txt_left"><a href="/attendance/{{ $approval->id }}">詳細</a></td>
+                @if ($routeStatus === 0)
+                    <td class="txt_left"><a href="/attendance/{{ $approval->id }}">詳細</a></td>
+                @else
+                    <td class="txt_left"><a href="/admin/stamp_correction_request/approve/{{ $approval->id }}">詳細</a></td>
+                @endif
             </tr>
             @endforeach
         </table>
@@ -44,13 +48,15 @@
 </div>
 
 <style>
-    /* .waithing_for_approval {
+    @if ($cssStatus === 0)
+    .waithing_for_approval {
         font-weight: 600;
     }
-
+    @else
     .approved {
         font-weight: 600;
-    } */
+    }
+    @endif
 </style>
 
 @endsection
