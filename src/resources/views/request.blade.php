@@ -35,7 +35,7 @@
                 <td class="txt_left">{{ $approval->user->name }}</td>
                 <td class="txt_left">{{ $approval->date->format('Y/m/d') }}</td>
                 <td class="txt_left">{{ $approval->reason }}</td>
-                <td class="txt_left">{{ $approval->created_at->format('Y/m/d') }}</td>
+                <td class="txt_left">{{ $approval->requested_at->format('Y/m/d') }}</td>
                 @if ($routeStatus === 0)
                     <td class="txt_left"><a href="/attendance/{{ $approval->id }}">詳細</a></td>
                 @else

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Contracts\Session\Session;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
@@ -68,6 +70,12 @@ class AdminController extends Controller
             ->whereMonth('date', $month)
             ->get();
 
+        Session()->put('search_item', [
+            'user_id' => $user_id,
+            'year' => $year,
+            'month' => $month
+        ]);
+
         $attendancesDate = [];
         foreach ($attendances as $attendance) {
             $dateKey = (new DateTime($attendance->date))->format('Y-m-d');
@@ -85,5 +93,48 @@ class AdminController extends Controller
         ];
 
         return view('admin.staff_attendance', $param);
+    }
+
+    public function downloadCsv()
+    {
+        $searchItem = Session()->get('search_item');
+        $user_id = $searchItem['user_id'];
+        $year = $searchItem['year'];
+        $month = $searchItem['month'];
+
+        $attendances = Attendance::where('user_id', $user_id)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->with('user')
+            ->get();
+
+        $csvHeader = ['氏名', '打刻開始', '打刻終了','休憩時間','勤務時間'];
+
+        $csvData = $attendances->map(function ($attendance) {
+            return [
+                'name' => $attendance->user->name,
+                'clock_in' => $attendance->clock_in,
+                'clock_out' => $attendance->clock_out,
+                'rest' => $attendance->rest,
+                'total' => $attendance->total
+            ];
+        })->toArray();
+
+        $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
+            $handle = fopen('php://output', 'w');
+            stream_filter_append($handle, 'convert.iconv.UTF-8/SJIS-win');
+            fputcsv($handle, $csvHeader);
+
+            foreach ($csvData as $row) {
+                fputcsv($handle, $row);
+            }
+
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="users.csv"',
+        ]);
+
+        return $response;
     }
 }

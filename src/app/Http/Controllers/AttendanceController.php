@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AttendanceController extends Controller
 {
@@ -217,35 +216,6 @@ class AttendanceController extends Controller
         ];
 
         return view('list', $param);
-    }
-
-    public function downloadCsv()
-    {
-        $columnsToExport = ['id', 'name', 'email'];
-
-        // 2. 定義したカラムのみをデータベースから取得する
-        //    'select()'メソッドでカラムを限定し、'get()'で実行
-        $users = User::select($columnsToExport)->get();
-
-        // 3. CSVヘッダーを取得したカラムと一致させる
-        $csvHeader = $columnsToExport;
-        $csvData = $users->toArray();
-
-        $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, $csvHeader);
-
-            foreach ($csvData as $row) {
-                fputcsv($handle, $row);
-            }
-
-            fclose($handle);
-        }, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="users.csv"',
-        ]);
-
-        return $response;
     }
 
     public function detail(Attendance $id) {

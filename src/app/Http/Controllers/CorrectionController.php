@@ -18,6 +18,7 @@ class CorrectionController extends Controller
             'clock_in' => $request->clock_in,
             'clock_out' => $request->clock_out,
             'reason' => $request->reason,
+            'requested_at' => date('Y-m-d H:i:s'),
             'approval_status' => $status,
         ];
 

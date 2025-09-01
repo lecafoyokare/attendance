@@ -22,6 +22,7 @@ class CreateAttendancesTable extends Migration
             $table->time('rest')->nullable();
             $table->time('total')->nullable();
             $table->text('reason')->nullable();
+            $table->datetime('requested_at')->nullable();
             $table->integer('approval_status')->nullable();
             $table->timestamps();
         });
