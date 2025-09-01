@@ -115,8 +115,8 @@ class AdminController extends Controller
                 'name' => $attendance->user->name,
                 'clock_in' => $attendance->clock_in,
                 'clock_out' => $attendance->clock_out,
-                'rest' => $attendance->rest,
-                'total' => $attendance->total
+                'rest' => date('H:i', strtotime($attendance->rest)),
+                'total' => date('H:i', strtotime($attendance->total))
             ];
         })->toArray();
 
