@@ -58,7 +58,11 @@ class RequestController extends Controller
 
         $user_name = $attendance_correct_request->user->name;
 
-        $status = 2;
+        if ($attendance_correct_request->approval_status !== 3) {
+            $status = 2;
+        } else {
+            $status = 3;
+        }
 
         $data = [
             'user_name' => $user_name,
@@ -67,5 +71,15 @@ class RequestController extends Controller
         ];
 
         return view('detail', $data);
+    }
+
+    public function approveProcess() {
+        $attendance_id = session('attendance_id');
+
+        $attendance = Attendance::findOrFail($attendance_id)->update(['approval_status' => 3]);
+
+        session()->forget('attendance_id');
+
+        return back();
     }
 }

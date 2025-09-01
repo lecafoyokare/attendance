@@ -83,9 +83,9 @@
                     @break
 
                 @case(2)
-                    <form action="">
-                        <input type="hidden" name="id" value="">
-                        <button>承認</button>
+                    <form action="/admin/stamp_correction_request/approve" method="post">
+                    @csrf
+                        <button type="submit">承認</button>
                     </form>
                     @break
 
