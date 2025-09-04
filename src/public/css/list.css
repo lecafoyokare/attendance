@@ -58,25 +58,26 @@
     color: black;
 }
 
-label {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-    height: 36px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
+.datepicker_wrapper {
+    width: 130px;
 }
 
-input[type="date"] {
-    position: relative;
-    padding: 0 10px;
-    width: 200px;
-    height: 36px;
-    border: 0;
-    background: transparent;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #999;
+.form-control {
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.calendar-icon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.input-group.date {
+    display: flex;
+    align-items: center;
 }
 
 .table {
@@ -115,12 +116,16 @@ input[type="date"] {
 }
 
 .correction button {
-    padding: 4px 30px;
+    padding: 6px 30px;
     font-size: 16px;
-    color: #fff;
-    letter-spacing: 1px;
     background-color: black;
     border-radius: 4px;
+}
+
+.correction a {
+    color: #fff;
+    letter-spacing: 1px;
+    text-decoration: none;
 }
 
 .error {

@@ -186,7 +186,7 @@ class AttendanceController extends Controller
 
         $baseDate = ($year && $month) ? Carbon::create($year, $month, 1) : Carbon::now();
 
-        $displayDate = $baseDate->format('Y-m-d');
+        $displayDate = $baseDate;
 
         $previousMonth = $baseDate->copy()->subMonthNoOverflow();
         $nextMonth = $baseDate->copy()->addMonthNoOverflow();
