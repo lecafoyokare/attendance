@@ -92,13 +92,18 @@ class AttendanceController extends Controller
         $clock_in = $attendance->clock_in;
         $clock_out = $attendance->clock_out;
         $rest = $attendance->rest;
-        $hours = $rest->hour;
-        $minutes = $rest->minute;
-        $seconds = $rest->second;
+
+        if ($rest) {
+            $hours = $rest->hour;
+            $minutes = $rest->minute;
+            $seconds = $rest->second;
+
+            $restTimeSeconds = $hours * 3600 + $minutes * 60 + $seconds;
+        } else {
+            $restTimeSeconds = 0;
+        }
 
         $totalTimeSeconds = strtotime($clock_out) - strtotime($clock_in);
-
-        $restTimeSeconds = $hours * 3600 + $minutes * 60 + $seconds;
 
         $workTimeSeconds = $totalTimeSeconds - $restTimeSeconds;
 

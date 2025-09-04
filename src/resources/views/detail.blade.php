@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+@if ($errors->any())
+    <div class="alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="detail">
     <div  id="detail_inner" class="detail_inner">
         <h2 class="detail_ttl">

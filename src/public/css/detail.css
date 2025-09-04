@@ -5,6 +5,17 @@
     min-height: 800px;
 }
 
+.alert-danger {
+    padding: 10px 0;
+    border-color: #f5c2c7;
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-danger ul {
+    margin: 0;
+}
+
 .detail {
     width: 900px;
     height: 100%;

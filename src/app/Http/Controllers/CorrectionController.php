@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Rest;
 use Illuminate\Http\Request;
+use App\Http\Requests\AttendanceRequest;
 
 class CorrectionController extends Controller
 {
-    public function update(Request $request) {
+    public function update(AttendanceRequest $request) {
 
         $attendance_id = session('attendance_id');
         $rests_id = session('rests_id');
