@@ -23,7 +23,7 @@ use Illuminate\Http\Request;
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('attendance', [AttendanceController::class, 'attendance'])->middleware('home')->name('attendance');
+    Route::get('/attendance', [AttendanceController::class, 'attendance'])->middleware('home')->name('attendance');
     Route::post('/attendance/clock_in', [AttendanceController::class, 'clockIn']);
     Route::post('/attendance/clock_out', [AttendanceController::class, 'clockOut']);
     Route::post('/attendance/rest_start', [AttendanceController::class, 'restStart']);

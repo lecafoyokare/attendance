@@ -1,64 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 勤怠管理アプリ
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 開発環境
 
-## About Laravel
+windows11
+wsl ubuntu
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 使用技術
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Laravel 8.x  
+PHP  
+MySQL
+Docker
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 環境構築
 
-## Learning Laravel
+1. git clone git@github.com:lecafoyokare/attendance.git
+2. DockerDesktop アプリを立ち上げる
+3. 名前の変更がなければカウントディレクトリを attendance のままにする
+4. docker-compose up -d --build
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+以降カウントディレクトリは docker-compose up -d --build を行ったディレクトリの前提で説明を進めます。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Laravel 環境構築
 
-## Laravel Sponsors
+1. docker-compose exec php bash 'php コンテナ内に入るためのコマンド
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+2 からは php コンテナ内でのコマンド実行 ※1 で成功していれば php コンテナ内に入っています
 
-### Premium Partners
+2. composer install 'composer のインストール
+3. composer -v 'composer がインストールが出来ているか確認。成功していれば以下の表示が出ます。
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+https://github-production-user-asset-6210df.s3.amazonaws.com/198622084/486508648-c8e21b08-4fcb-4852-800f-5c3bd17fd39e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250907T120424Z&X-Amz-Expires=300&X-Amz-Signature=0ed48e3d2502b4636c4e9cb9b87c88ce5b79a3c11d01e4cc7e2ec699ea0fe49f&X-Amz-SignedHeaders=host
 
-## Contributing
+4. cp .env.example .env '.env.example ファイルをコピーし新たに.env ファイルを作成
+5. code .
+6. src ディレクトリ内の.env ファイルを開く
+7. 以下のように変更
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+![スクリーンショット 2024-10-11 031118](https://github.com/user-attachments/assets/06954734-22a5-4810-b62a-d13b22fe0a04)
 
-## Code of Conduct
+もし以下のようなエラーがでた場合は exit コマンドを入力しカウントディレクトリへ移動  
+ 次のコマンドを実行してください sudo chmod -R 777 src/.env  
+ またパスワードを求められた際はパスワードを入力
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+![スクリーンショット 2024-10-11 031624](https://github.com/user-attachments/assets/44db8615-3d09-4c9c-ae2b-cee9e8172b61)
 
-## Security Vulnerabilities
+8. php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+9. ブラウザで localhost/login と検索。成功していれば以下のような画面になります。
 
-## License
+https://github.com/user-attachments/assets/b0ae602a-657d-41f5-8e31-f22a22280599
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    もし以下のようなエラーがでた場合は exit コマンドを入力しカウントディレクトリへ移動
+    次のコマンドを実行してください sudo chmod -R 777 src/\*
+    またパスワードが求められた際はパスワードを入力
+
+![スクリーンショット 2024-10-11 035146](https://github.com/user-attachments/assets/c12284bc-1027-464f-9ed8-eb7f2f01e3df)
+
+#### テストデータの追加
+
+1.カウントディレクトリで docker-compose exec php bash を入力し php コンテナに入り下記のコマンドを実行する  
+ php artisan db:seed
