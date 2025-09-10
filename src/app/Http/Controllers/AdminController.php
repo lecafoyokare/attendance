@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Attendance;
 use App\Models\Rest;
@@ -13,11 +14,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
-    public function login() {
+    public function login()
+    {
         return view('Auth.login');
     }
 
-    public function list($year = null, $month = null,$day = null) {
+    public function list($year = null, $month = null, $day = null)
+    {
 
         $baseDate = ($year && $month && $day) ? Carbon::create($year, $month, $day) : Carbon::now();
 
@@ -31,19 +34,21 @@ class AdminController extends Controller
         $day = $baseDate->day;
 
         $attendances = Attendance::whereYear('date', $year)
-                        ->whereMonth('date', $month)
-                        ->whereDay('date', $day)
-                        ->get();
+            ->whereMonth('date', $month)
+            ->whereDay('date', $day)
+            ->get();
 
         return view('admin.list', compact('attendances', 'displayDate', 'previousday', 'nextday'));
     }
 
-    public function staffList() {
+    public function staffList()
+    {
         $users = User::where('role', 'staff')->get();
         return view('admin.staff', compact('users'));
     }
 
-    public function staffAttendance(User $id, $year = null, $month = null) {
+    public function staffAttendance(User $id, $year = null, $month = null)
+    {
 
         $user_name = $id->name;
 
@@ -102,23 +107,52 @@ class AdminController extends Controller
         $year = $searchItem['year'];
         $month = $searchItem['month'];
 
+        $baseDate = Carbon::create($year, $month, 1);
+
+        $daysInMonth = $baseDate->daysInMonth;
+
+        $dates = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dates[] = Carbon::create($year, $month, $day)->toDateString();
+        }
+
         $attendances = Attendance::where('user_id', $user_id)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->with('user')
             ->get();
 
-        $csvHeader = ['氏名', '打刻開始', '打刻終了','休憩時間','勤務時間'];
+        $attendancesDate = [];
+        foreach ($attendances as $attendance) {
+            $dateKey = (new DateTime($attendance->date))->format('Y-m-d');
+            $attendancesDate[$dateKey] = $attendance;
+        }
 
-        $csvData = $attendances->map(function ($attendance) {
-            return [
-                'name' => $attendance->user->name,
-                'clock_in' => $attendance->clock_in,
-                'clock_out' => $attendance->clock_out,
-                'rest' => date('H:i', strtotime($attendance->rest)),
-                'total' => date('H:i', strtotime($attendance->total))
+        $csvHeader = ['氏名', '打刻開始', '打刻終了', '休憩時間', '勤務時間'];
+
+        foreach ($dates as $date) {
+            if (isset($attendancesDate[$date])) {
+                $attendance = $attendancesDate[$date];
+                $clockIn = optional($attendance->clock_in)->format('H:i');
+                $clockOut = optional($attendance->clock_out)->format('H:i');
+                $rest = optional($attendance->rest)->format('H:i');
+                $total = optional($attendance->total)->format('H:i');
+            } else {
+                $clockIn = '';
+                $clockOut = '';
+                $rest = '';
+                $total = '';
+            }
+
+            $csvData[] = [
+                'date' => $date,
+                'name' => $attendances->first()->user->name,
+                'clock_in' => $clockIn,
+                'clock_out' => $clockOut,
+                'rest' => $rest,
+                'total' => $total
             ];
-        })->toArray();
+        }
 
         $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
             $handle = fopen('php://output', 'w');

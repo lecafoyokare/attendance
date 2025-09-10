@@ -30,7 +30,7 @@ Docker
 2. composer install 'composer のインストール
 3. composer -v 'composer がインストールが出来ているか確認。成功していれば以下の表示が出ます。
 
-https://github-production-user-asset-6210df.s3.amazonaws.com/198622084/486508648-c8e21b08-4fcb-4852-800f-5c3bd17fd39e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250907T120424Z&X-Amz-Expires=300&X-Amz-Signature=0ed48e3d2502b4636c4e9cb9b87c88ce5b79a3c11d01e4cc7e2ec699ea0fe49f&X-Amz-SignedHeaders=host
+![composerインストール確認画像](https://github.com/user-attachments/assets/5c39a929-5a1f-42f0-b8ed-a4886e731a63)
 
 4. cp .env.example .env '.env.example ファイルをコピーし新たに.env ファイルを作成
 5. code .
@@ -49,7 +49,7 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/198622084/486508648
 
 9. ブラウザで localhost/login と検索。成功していれば以下のような画面になります。
 
-https://github.com/user-attachments/assets/b0ae602a-657d-41f5-8e31-f22a22280599
+![ログイン画面](https://github.com/user-attachments/assets/b0ae602a-657d-41f5-8e31-f22a22280599)
 
     もし以下のようなエラーがでた場合は exit コマンドを入力しカウントディレクトリへ移動
     次のコマンドを実行してください sudo chmod -R 777 src/\*
