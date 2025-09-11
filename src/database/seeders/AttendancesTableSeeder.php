@@ -17,7 +17,7 @@ class AttendancesTableSeeder extends Seeder
     {
         $param = [
             'id' => 1,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-06',
             'clock_in' => '08:00:00',
             'clock_out' => '17:00:00',
@@ -32,7 +32,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 2,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-07',
             'clock_in' => '09:55:00',
             'clock_out' => '09:55:00',
@@ -47,7 +47,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 3,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-08',
             'clock_in' => '09:55:35',
             'clock_out' => '09:55:35',
@@ -62,7 +62,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 4,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-18',
             'clock_in' => '20:14:00',
             'clock_out' => '20:14:00',
@@ -77,7 +77,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 5,
-            'user_id' => 2,
+            'user_id' => 3,
             'date' => '2025-08-19',
             'clock_in' => '23:36:25',
             'clock_out' => '23:38:09',
@@ -92,7 +92,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 6,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-19',
             'clock_in' => '23:39:28',
             'clock_out' => '23:39:31',
@@ -107,7 +107,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 7,
-            'user_id' => 2,
+            'user_id' => 3,
             'date' => '2025-08-25',
             'clock_in' => '00:48:10',
             'clock_out' => '01:19:00',
@@ -122,7 +122,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 8,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-26',
             'clock_in' => '19:04:05',
             'clock_out' => null,
@@ -137,7 +137,7 @@ class AttendancesTableSeeder extends Seeder
 
         $param = [
             'id' => 9,
-            'user_id' => 1,
+            'user_id' => 2,
             'date' => '2025-08-27',
             'clock_in' => '00:47:54',
             'clock_out' => '01:31:36',

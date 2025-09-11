@@ -54,7 +54,7 @@ class AdminController extends Controller
 
         $baseDate = ($year && $month) ? Carbon::create($year, $month, 1) : Carbon::now();
 
-        $displayDate = $baseDate->format('Y-m-d');
+        $displayDate = $baseDate;
 
         $previousMonth = $baseDate->copy()->subMonthNoOverflow();
         $nextMonth = $baseDate->copy()->addMonthNoOverflow();
@@ -128,16 +128,18 @@ class AdminController extends Controller
             $attendancesDate[$dateKey] = $attendance;
         }
 
-        $csvHeader = ['氏名', '打刻開始', '打刻終了', '休憩時間', '勤務時間'];
+        $csvHeader = ['日付','氏名', '打刻開始', '打刻終了', '休憩時間', '勤務時間'];
 
         foreach ($dates as $date) {
             if (isset($attendancesDate[$date])) {
                 $attendance = $attendancesDate[$date];
+                $name = $attendance->user->name;
                 $clockIn = optional($attendance->clock_in)->format('H:i');
                 $clockOut = optional($attendance->clock_out)->format('H:i');
                 $rest = optional($attendance->rest)->format('H:i');
                 $total = optional($attendance->total)->format('H:i');
             } else {
+                $name = User::find($user_id)->name;
                 $clockIn = '';
                 $clockOut = '';
                 $rest = '';
@@ -146,7 +148,7 @@ class AdminController extends Controller
 
             $csvData[] = [
                 'date' => $date,
-                'name' => $attendances->first()->user->name,
+                'name' => $name,
                 'clock_in' => $clockIn,
                 'clock_out' => $clockOut,
                 'rest' => $rest,
