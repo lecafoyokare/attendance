@@ -65,3 +65,26 @@ Docker
 管理者テストユーザー名 admin@gmail.com パスワード adminpass  
 従業員テストユーザー名 staff@gmail.com パスワード staffpass  
 従業員テストユーザー名 staff@gmail.com パスワード staffpass
+
+#### Mailtrap の設定
+
+mailtrap のアカウントがない場合まず下記の url から登録を行って下さい。  
+https://mailtrap.io/
+
+アカウントの登録が完了しログインすると下記のような画面が現れると思います。
+
+![mailtrapログイン](https://github.com/user-attachments/assets/3586bac2-4e7f-414b-b749-41c75878e0a5)
+
+My Inbox をクリックし次に進んでください。すると下記のような画面が現れると思います。
+
+![MyInbox](https://github.com/user-attachments/assets/c4b9bb42-e87d-42bd-9ac6-b2979d327ca6)
+
+上記の Code Samples の箇所を laravel 7.x and 8.x に設定しコードを右上の Copy ボタンからコピーしてください。  
+※直接選択してコピーしますとエラーが発生します。
+
+コピーした箇所と該当するところを laravel の.env ファイルを開き置き換えてください。  
+これで設定は完了です。
+
+初回認証の際に上記画面の次の部分のように  
+![verify](https://github.com/user-attachments/assets/2aa08d7c-1ae3-480b-a0b4-e7dd36b2d6f4)  
+確認メールが届くようになると思います。※テストデータのユーザーはあらかじめ登録されています。
